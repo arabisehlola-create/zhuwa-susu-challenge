@@ -21,6 +21,17 @@ class SusuGroup:
             self.members.append(name)
             print(f"{name} has been added successfully.")
 
+    
+    def remove_member(self, name):
+        name = name.strip()
+
+        if name in self.members:
+            self.members.remove(name)
+            print(f"{name} has been removed successfully.")
+        else:
+            print(f"Error: {name} is not a member.")
+        
+
 
   
         
