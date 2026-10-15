@@ -1,14 +1,16 @@
 
+
 from susu import SusuGroup
 
-# Create a savings group
 group = SusuGroup(100)
 
-# Add two members
 group.add_member("Arabi")
 group.add_member("Thandi")
-group.add_member("Arabi")  # Attempt to add a duplicate member
+group.add_member("Arabi")  # Duplicate
+group.add_member("")       # Empty name
+group.add_member("   ")    # Spaces only
+group.add_member("  Sipho  ")  # Spaces around a valid name
 
-# Display the members
 print("Final members:", group.members)
+
 
