@@ -18,5 +18,7 @@ group.remove_member("Lebo")
 
 print("Final members:", group.members)
 
+print("Weekly payout:", group.calculate_payout())
+
 
 
