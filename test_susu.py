@@ -1,24 +1,41 @@
 
-
+import unittest
 from susu import SusuGroup
 
-group = SusuGroup(100)
 
-group.add_member("Arabi")
-group.add_member("Thandi")
-group.add_member("Sipho")
+class TestSusuGroup(unittest.TestCase):
 
-print("Before removal:", group.members)
+    def test_group_starts_with_no_members(self):
+        group = SusuGroup(100)
+        self.assertEqual(group.members, [])
 
-group.remove_member("Thandi")
+    def test_add_member(self):
+        group = SusuGroup(100)
+        group.add_member("Arabi")
+        self.assertIn("Arabi", group.members)
 
-print("After removal:", group.members)
+    def test_prevent_duplicate_member(self):
+        group = SusuGroup(100)
+        group.add_member("Arabi")
+        group.add_member("Arabi")
+        self.assertEqual(len(group.members), 1)
 
-group.remove_member("Lebo")
+    def test_remove_member(self):
+        group = SusuGroup(100)
+        group.add_member("Arabi")
+        group.remove_member("Arabi")
+        self.assertNotIn("Arabi", group.members)
 
-print("Final members:", group.members)
+    def test_calculate_weekly_contributions(self):
+        group = SusuGroup(100)
+        group.add_member("Arabi")
+        group.add_member("Sipho")
+        self.assertEqual(group.calculate_payout(), 200)
 
-print("Weekly payout:", group.calculate_payout())
+
+if __name__ == "__main__":
+    unittest.main()
+
 
 
 
