@@ -66,7 +66,6 @@ class SusuGroup:
     def calculate_payout(self):
         return self.weekly_contribution * len(self.members)
 
-    
     def close_week(self):
         if not self.members:
             raise ValueError("Cannot close a week without members.")
@@ -110,8 +109,6 @@ class SusuGroup:
             "amount": pot
         }
 
-
-    
     def get_week_report(self):
         week_payments = self.contributions.get(
             self.current_week, {}
@@ -133,6 +130,100 @@ class SusuGroup:
             })
 
         return report
+
+
+def main():
+    print("Welcome to Susu Group Tracker!")
+
+    try:
+        weekly_amount = input("Enter weekly contribution in GHS: ")
+        group = SusuGroup(weekly_amount)
+    except ValueError as error:
+        print(f"Error: {error}")
+        return
+
+    while True:
+        print("\n--- Susu Group Tracker ---")
+        print(f"Current week: {group.current_week}")
+        print("1. Add member")
+        print("2. Record contribution")
+        print("3. Close week")
+        print("4. View payment report")
+        print("5. View payout history")
+        print("6. Exit")
+
+        choice = input("Choose an option (1-6): ")
+
+        try:
+            if choice == "1":
+                name = input("Enter member name: ")
+                group.add_member(name)
+                print(f"{name.strip()} added successfully.")
+
+            elif choice == "2":
+                name = input("Enter member name: ")
+                amount = input("Enter payment amount in GHS: ")
+                total_paid = group.record_contribution(name, amount)
+                print(f"Total paid this week: GHS {total_paid}")
+
+            elif choice == "3":
+                result = group.close_week()
+                print(f"Week {result['week']} closed successfully.")
+                print(f"Recipient: {result['recipient']}")
+                print(f"Pot paid: GHS {result['amount']}")
+
+            elif choice == "4":
+                report = group.get_week_report()
+
+                if not report:
+                    print("There are no members to report.")
+
+                for member in report:
+                    status = (
+                        "Paid in full"
+                        if member["paid_in_full"]
+                        else "Payment outstanding"
+                    )
+                    print(
+                        f"{member['name']}: "
+                        f"Paid GHS {member['amount_paid']}, "
+                        f"Owes GHS {member['amount_owed']} "
+                        f"({status})"
+                    )
+
+            elif choice == "5":
+                if not group.payout_history:
+                    print("No payouts have been recorded yet.")
+                else:
+                    for payout in group.payout_history:
+                        print(
+                            f"Week {payout['week']}: "
+                            f"{payout['recipient']} received "
+                            f"GHS {payout['amount']}"
+                        )
+
+            elif choice == "6":
+                print("Thank you for using Susu Group Tracker!")
+                break
+
+            else:
+                print("Invalid option. Please choose 1 to 6.")
+
+        except ValueError as error:
+            print(f"Error: {error}")
+
+
+if __name__ == "__main__":
+    main()
+
+
     
+
     
+
+
+
+
+
+
 
