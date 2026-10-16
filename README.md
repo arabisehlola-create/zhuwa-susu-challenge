@@ -24,6 +24,16 @@ Members contribute a fixed amount each week. When all members have paid their fu
 - Python 3
 - No external Python packages are required.
 
+## How to Run the Application
+
+Open a terminal in the project folder and run:
+
+```bash
+python3 susu.py
+```
+
+Follow the menu to add members, record contributions, close weeks, and view reports or payout history.
+
 ## How to Run the Tests
 
 Open a terminal in the project folder and run:
@@ -40,6 +50,11 @@ python3 -m unittest -v
 ## Current Status
 
 The core group management, contribution recording, week-closing, payout rotation, and payment-report features have automated tests.
+
+## Current Limitations
+
+- Group data is stored in memory and is lost when the program exits.
+- The application manages one savings group at a time.
 
 ## Author
 
